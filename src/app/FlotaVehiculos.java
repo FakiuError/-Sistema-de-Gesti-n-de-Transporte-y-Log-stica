@@ -7,6 +7,7 @@ public class FlotaVehiculos {
     public ArrayList<Vehiculo> vehiculos;
     public String tipo;
     public double consumo;
+    public String matricula;
     
     public FlotaVehiculos() {
         vehiculos = new ArrayList<>();
@@ -21,6 +22,7 @@ public class FlotaVehiculos {
             if (v.getMatricula().equalsIgnoreCase(matricula)) {
                 tipo = v.getTipo();
                 consumo = v.getConsumo();
+                this.matricula = v.getMatricula();
                 System.out.println("Si existe");
                 return v;
             }
