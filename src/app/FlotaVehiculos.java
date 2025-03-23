@@ -30,6 +30,15 @@ public class FlotaVehiculos {
         System.out.println("No existe");
         return null;
     }
+    
+    public Vehiculo eliminarVehiculo(String matricula) {
+        for (Vehiculo v : vehiculos) {
+            if (v.getMatricula().equalsIgnoreCase(matricula)) {
+                vehiculos.remove(v);
+            }
+        }
+        return null;
+    }
 
     public void mostrarVehiculos() {
         if (vehiculos.isEmpty()) {
@@ -40,5 +49,9 @@ public class FlotaVehiculos {
                 System.out.println(v.toString());
             }
         }
+    }
+    
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 }

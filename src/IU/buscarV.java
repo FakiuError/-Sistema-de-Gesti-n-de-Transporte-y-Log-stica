@@ -139,6 +139,9 @@ public class buscarV extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 buttonEliminarMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                buttonEliminarMousePressed(evt);
+            }
         });
 
         labelViajes.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
@@ -301,6 +304,16 @@ public class buscarV extends javax.swing.JFrame {
         buttonEliminar.setBackground(new Color (255, 51, 51));
         buttonEliminar.setForeground(white);
     }//GEN-LAST:event_buttonEliminarMouseExited
+
+    private void buttonEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEliminarMousePressed
+        flota.eliminarVehiculo(txtMatricula.getText());
+        JOptionPane.showMessageDialog(this, "Vehículo eliminado correctamente.");        
+        txtMatricula.setText("Ingrese por favor la placa del vehiculo");
+        new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/logo_nuevo.jpg");
+        buttonEliminar.setVisible(false);
+        labelViajes.setVisible(false);
+        labelInfo.setVisible(false);
+    }//GEN-LAST:event_buttonEliminarMousePressed
 
     
 
