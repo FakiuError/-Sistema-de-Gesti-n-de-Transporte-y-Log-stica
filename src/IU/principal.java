@@ -14,7 +14,8 @@ public class principal extends javax.swing.JFrame {
         this.flota = flota;
         
         initComponents();
-       new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/logo_nuevo.jpg");
+        new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/logo_nuevo.jpg");
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -249,6 +250,7 @@ public class principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
     public void SetImageLabel (JLabel labelName, String root) {
         ImageIcon image = new ImageIcon(root);
         Icon icon = new ImageIcon(image.getImage().getScaledInstance(labelName.getWidth(), labelName.getHeight(), Image.SCALE_DEFAULT));
@@ -309,7 +311,10 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCrearRMouseExited
 
     private void buttonCrearRMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCrearRMousePressed
-        // TODO add your handling code here:
+        crearR pantalla = new crearR(this.flota, this);
+        pantalla.setLocationRelativeTo(null);
+        pantalla.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_buttonCrearRMousePressed
 
     private void buttonCrearRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCrearRActionPerformed

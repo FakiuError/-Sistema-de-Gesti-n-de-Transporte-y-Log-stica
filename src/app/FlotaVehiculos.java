@@ -1,6 +1,7 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FlotaVehiculos {
     
@@ -51,7 +52,11 @@ public class FlotaVehiculos {
         }
     }
     
-    public ArrayList<Vehiculo> getVehiculos() {
-        return vehiculos;
+    public List<String> obtenerTiposVehiculos() {
+        List<String> tipos = new ArrayList<>();
+        for (Vehiculo v : vehiculos) {
+            tipos.add(v.getTipo() + " - " + v.getMatricula());
+        }
+        return tipos;
     }
 }

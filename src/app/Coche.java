@@ -5,6 +5,7 @@ public class Coche extends Vehiculo {
         super(matricula, consumo);
     }
 
+    @Override
     public String getTipo() {
         return "Coche";
     }

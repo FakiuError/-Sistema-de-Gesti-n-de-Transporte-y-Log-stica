@@ -5,6 +5,7 @@ public class Camion extends Vehiculo {
         super(matricula, consumo);
     }
 
+    @Override
     public String getTipo() {
         return "Camion";
     }
@@ -13,4 +14,6 @@ public class Camion extends Vehiculo {
     public String toString() {
         return "Camion | Matricula: " + matricula + ", Consumo: " + consumo;
     }
+    
+    
 }

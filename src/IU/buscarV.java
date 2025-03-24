@@ -259,18 +259,24 @@ public class buscarV extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonBuscarActionPerformed
 
     private void buttonBuscarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBuscarMousePressed
-        flota.buscarVehiculo(txtMatricula.getText());
-        if (flota.tipo == "Motocicleta") {
-            new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/Motocicleta.jpg");
-        } else if (flota.tipo == "Coche") {
-            new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/Coche.jpg");
-        } else {
-            new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/Camion.jpg");
+        if (flota.buscarVehiculo(txtMatricula.getText()) == null) {
+            JOptionPane.showMessageDialog(this, "No se encuentra el vehiculo");  
+            buttonEliminar.setVisible(false);
+            labelViajes.setVisible(false);
+            new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/logo_nuevo.jpg");
         }
-        
-        labelInfo.setText(flota.tipo + " | Matricula: " + flota.matricula + ", Consumo:" + flota.consumo + " litros por kilometro.");
-        buttonEliminar.setVisible(true);
-        labelViajes.setVisible(true);
+        else {
+            labelInfo.setText(flota.tipo + " | Matricula: " + flota.matricula + ", Consumo:" + flota.consumo + " litros por kilometro.");
+            buttonEliminar.setVisible(true);
+            labelViajes.setVisible(true);
+            if ("Motocicleta".equals(flota.tipo)) {
+                new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/Motocicleta.jpg");
+            } else if (flota.tipo == "Coche") {
+                new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/Coche.jpg");
+            } else {
+                new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/Camion.jpg");
+            }
+        }
     }//GEN-LAST:event_buttonBuscarMousePressed
 
     private void buttonBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBuscarMouseExited
