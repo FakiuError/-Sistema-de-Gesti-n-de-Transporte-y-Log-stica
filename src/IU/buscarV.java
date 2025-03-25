@@ -4,17 +4,25 @@ import app.Camion;
 import app.Vehiculo;
 import app.FlotaVehiculos;
 import app.Coche;
+import app.Ruta;
+import app.Viaje;
 import java.awt.Color;
 import static java.awt.Color.*;
 import java.awt.Image;
+import java.util.Iterator;
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 public class buscarV extends javax.swing.JFrame {
     public FlotaVehiculos flota;
     public JFrame principal;
+    public DefaultListModel modeloLista = new DefaultListModel();
+    
     public buscarV(FlotaVehiculos flota, JFrame principal) {
         this.flota = flota;
         this.principal = principal;
@@ -22,6 +30,8 @@ public class buscarV extends javax.swing.JFrame {
         new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/logo_nuevo.jpg");
         buttonEliminar.setVisible(false);
         labelViajes.setVisible(false);
+        listaRutas.setModel(modeloLista);
+        listaRutas.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -41,6 +51,8 @@ public class buscarV extends javax.swing.JFrame {
         labelInfo = new javax.swing.JLabel();
         buttonEliminar = new javax.swing.JButton();
         labelViajes = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaRutas = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,6 +160,16 @@ public class buscarV extends javax.swing.JFrame {
         labelViajes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelViajes.setText("Lista de viajes");
 
+        listaRutas.setBorder(null);
+        listaRutas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        listaRutas.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listaRutas.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(listaRutas);
+
         javax.swing.GroupLayout txtPlacaLayout = new javax.swing.GroupLayout(txtPlaca);
         txtPlaca.setLayout(txtPlacaLayout);
         txtPlacaLayout.setHorizontalGroup(
@@ -164,11 +186,16 @@ public class buscarV extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txtPlacaLayout.createSequentialGroup()
                         .addGroup(txtPlacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(txtPlacaLayout.createSequentialGroup()
-                                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                                .addComponent(buttonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(labelViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(45, 45, 45)
+                                .addGroup(txtPlacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(txtPlacaLayout.createSequentialGroup()
+                                        .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                                        .addComponent(buttonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(labelViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(45, 45, 45))
+                            .addGroup(txtPlacaLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(lImage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))))
             .addGroup(txtPlacaLayout.createSequentialGroup()
@@ -212,17 +239,17 @@ public class buscarV extends javax.swing.JFrame {
                 .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(txtPlacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(txtPlacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lImage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(txtPlacaLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lImage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(txtPlacaLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(txtPlacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelInfo)
                             .addComponent(buttonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelViajes)))
+                        .addComponent(labelViajes)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -239,7 +266,8 @@ public class buscarV extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
+    
     private void buttonAtrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonAtrasMousePressed
         this.principal.setVisible(true);
         this.dispose();
@@ -276,7 +304,14 @@ public class buscarV extends javax.swing.JFrame {
             } else {
                 new interfaz(this.flota, this).SetImageLabel(lImage, "src/img/Camion.jpg");
             }
-        }
+            
+            listaRutas.setVisible(true);
+            modeloLista.removeAllElements();
+            Vehiculo miVehiculo = flota.buscarVehiculo(txtMatricula.getText());
+            for (Viaje viaje : miVehiculo.getHistorialViajes()) {
+                modeloLista.addElement(viaje.getRuta().toString() + ", Costo: $" + viaje.getRuta().calcularCosto(miVehiculo) + " COP - " + viaje.getFecha().toString());
+            }
+        } 
     }//GEN-LAST:event_buttonBuscarMousePressed
 
     private void buttonBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBuscarMouseExited
@@ -319,6 +354,7 @@ public class buscarV extends javax.swing.JFrame {
         buttonEliminar.setVisible(false);
         labelViajes.setVisible(false);
         labelInfo.setVisible(false);
+        listaRutas.setVisible(false);
     }//GEN-LAST:event_buttonEliminarMousePressed
 
     
@@ -330,11 +366,13 @@ public class buscarV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lImage;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelViajes;
+    private javax.swing.JList<String> listaRutas;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JPanel txtPlaca;
     // End of variables declaration//GEN-END:variables

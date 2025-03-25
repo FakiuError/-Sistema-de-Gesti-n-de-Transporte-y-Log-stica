@@ -14,4 +14,9 @@ public class Motocicleta extends Vehiculo {
     public String toString() {
         return "Motocicleta | Matricula: " + matricula + ", Consumo: " + consumo;
     }
+    
+    @Override
+    public double getPrecio() {
+        return (15777/3.78541);
+    }
 }

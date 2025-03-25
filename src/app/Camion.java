@@ -15,5 +15,8 @@ public class Camion extends Vehiculo {
         return "Camion | Matricula: " + matricula + ", Consumo: " + consumo;
     }
     
-    
+    @Override
+    public double getPrecio() {
+        return (10842/3.78541);
+    }
 }

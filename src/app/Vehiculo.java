@@ -1,17 +1,21 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Vehiculo {
     public String matricula;
     public double consumo;
-    public double recorrido;
-    public double costoP;
-    public String ciudadO;
-    public String ciudadD;
     public Ruta ruta;
+    public double precio;
+    List<Viaje> historialViajes;
     
     public Vehiculo (String matricula, double consumo) {
         this.matricula = matricula;
         this.consumo = consumo;
+        this.historialViajes = new ArrayList<>();
     }
     
     public String getMatricula() {
@@ -38,5 +42,18 @@ public abstract class Vehiculo {
     
     public Ruta getRuta() {
         return ruta;
+    }
+    
+    public double getPrecio() {
+        return precio;
+    }
+    
+    public void registrarViaje(Ruta ruta, String fecha) {
+        LocalDate fechaViaje = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        historialViajes.add(new Viaje(this, ruta, fechaViaje));
+    }
+    
+    public List<Viaje> getHistorialViajes() {
+        return historialViajes;
     }
 }

@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import app.Ruta;
+import app.Viaje;
+import java.time.LocalDate;
 
 public class crearR extends javax.swing.JFrame {
     public JFrame principal;
@@ -22,6 +24,7 @@ public class crearR extends javax.swing.JFrame {
         this.principal = principal;
         initComponents();
         cargarComboBox();
+        txtInfo.setVisible(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -46,6 +49,8 @@ public class crearR extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         boxVehiculo = new javax.swing.JComboBox<>();
+        jSeparator5 = new javax.swing.JSeparator();
+        txtInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,6 +208,10 @@ public class crearR extends javax.swing.JFrame {
             }
         });
 
+        txtInfo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtInfo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtInfo.setText("Aqui aparece la información");
+
         javax.swing.GroupLayout txtPlacaLayout = new javax.swing.GroupLayout(txtPlaca);
         txtPlaca.setLayout(txtPlacaLayout);
         txtPlacaLayout.setHorizontalGroup(
@@ -240,8 +249,15 @@ public class crearR extends javax.swing.JFrame {
                         .addGroup(txtPlacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 211, Short.MAX_VALUE)))
+                        .addGap(0, 211, Short.MAX_VALUE))
+                    .addGroup(txtPlacaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator5)))
                 .addContainerGap())
+            .addGroup(txtPlacaLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(txtInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         txtPlacaLayout.setVerticalGroup(
             txtPlacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +305,11 @@ public class crearR extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(buttonCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(159, 159, 159))
+                .addGap(42, 42, 42)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(txtInfo)
+                .addGap(54, 54, 54))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -351,6 +371,7 @@ public class crearR extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCrearMouseExited
 
     private void buttonCrearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCrearMousePressed
+        Vehiculo v = null;
         if (txtPeajes.getText().equals("Ingrese el valor de los peajes") ||
             txtCiudadD.getText().equals("Ingrese a la ciudad a la que se dirige") || 
             txtCiudadO.getText().equals("Ingrese la ciudad desde donde sale") || 
@@ -360,7 +381,7 @@ public class crearR extends javax.swing.JFrame {
             String seleccionado = (String) boxVehiculo.getSelectedItem();
             if (seleccionado != null) {
                 String matricula = seleccionado.split(" - ")[1];
-                Vehiculo v = flota.buscarVehiculo(matricula);
+                v = flota.buscarVehiculo(matricula);
                 if (v != null) {
                     recorrido = Double.parseDouble(txtRecorrido.getText());
                     costoP = Double.parseDouble(txtPeajes.getText());
@@ -368,12 +389,24 @@ public class crearR extends javax.swing.JFrame {
                     ciudadD = txtCiudadD.getText();
                     Ruta nuevaRuta = new Ruta(recorrido, costoP, ciudadO, ciudadD);
                     v.setRuta(nuevaRuta);
+                    
+                    v.getHistorialViajes().add(new Viaje(v, nuevaRuta, LocalDate.now())); 
                 } else {
                     JOptionPane.showMessageDialog(this, "Vehículo no encontrado.");
                 }
             }
-            
-            
+            if (flota.tipo.equals("Motocicleta")){
+                if (costoP != 0) {
+                    JOptionPane.showMessageDialog(this, "Recuerde que las motos no pagan peajes.");
+                } else {
+                    txtInfo.setText("La " + flota.tipo + " hace un recorrido de " + recorrido + " km y tiene un costo de $" + (((v.getConsumo()*recorrido)*v.getPrecio()) + costoP) + " COP.");
+                }
+                
+            }
+            else {
+                txtInfo.setText("El " + flota.tipo + " hace un recorrido de " + recorrido + " km y tiene un costo de $" + (((v.getConsumo()*recorrido)*v.getPrecio()) + costoP) + " COP.");
+            }
+            txtInfo.setVisible(true);
             JOptionPane.showMessageDialog(this, "Ruta creada correctamente");  
         }      
     }//GEN-LAST:event_buttonCrearMousePressed
@@ -489,8 +522,10 @@ public class crearR extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTextField txtCiudadD;
     private javax.swing.JTextField txtCiudadO;
+    private javax.swing.JLabel txtInfo;
     private javax.swing.JTextField txtPeajes;
     private javax.swing.JPanel txtPlaca;
     private javax.swing.JTextField txtRecorrido;
