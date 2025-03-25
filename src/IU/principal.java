@@ -332,7 +332,10 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonVerRMouseExited
 
     private void buttonVerRMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonVerRMousePressed
-        // TODO add your handling code here:
+        lista pantalla = new lista(this.flota, this);
+        pantalla.setLocationRelativeTo(null);
+        pantalla.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_buttonVerRMousePressed
 
     private void buttonVerRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVerRActionPerformed

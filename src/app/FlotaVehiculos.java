@@ -59,4 +59,12 @@ public class FlotaVehiculos {
         }
         return tipos;
     }
+    
+    public List<Viaje> obtenerTodasLasRutas() {
+        List<Viaje> todasLasRutas = new ArrayList<>();
+        for (Vehiculo vehiculo : vehiculos) {
+            todasLasRutas.addAll(vehiculo.getHistorialViajes());
+        }
+        return todasLasRutas;
+    }
 }

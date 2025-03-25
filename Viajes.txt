@@ -1,0 +1,1 @@
+Vehículo: ABC123 | Ruta: Ruta: a -> e, Distancia: 16.0 km, Peaje: $18500.0 | Fecha: 2025-03-24
